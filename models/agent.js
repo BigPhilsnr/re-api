@@ -3,15 +3,23 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var AgentSchema = Schema({
-    user: {
-        type: Schema.ObjectId,
-        ref: 'User'
+    name: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
     },
     property: [{
         type: Schema.ObjectId,
         ref: 'Property'
     }],
-    fees: {
+    cut: {
         type: Number,
         required: true
     },
