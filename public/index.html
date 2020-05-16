@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+<body ng-app="myApp" ng-controller="myCtrl">
+    <div>
+        <input type="text" placeholder="Table Name" ng-model="tableName" />
+    </div>
+    <br />
+    <div ng-repeat="x in records">
+        <input type="text" placeholder="Name" ng-model="x.name" />
+        <select ng-model="x.type" placeholder="Data type">
+            <option>String </option>
+            <option>Number </option>
+            <option>Boolean </option>
+            <option>Schema.ObjectId </option>
+        </select>
+        <input type="text" ng-model="x.ref" />
+        <input type="checkbox" placeholder="required" ng-model="x.required" />
+        <button style="background:green;color:white" ng-click="reload()"> save </button>
+        <button style="background:red;color:white"> remove</button>
+    </div>
+    <button ng-click="addField()">Add filed</button>
+    <button ng-click="showFields()">Show All </button>
+    <button ng-click="SaveCollection()">Save Collection</button>
+    <p>{{template}}</p>
+
+    <script>
+        var app = angular.module("myApp", []);
+
+        app.controller("myCtrl", function ($scope) {
+
+
+            $scope.postdata = function (name, age, adress) {
+
+                var data = {
+
+                    name: name,
+
+                    age: age,
+
+                    adress: adress
+
+                };
+
+                //Call the services
+
+                $http.post('/createmodel', JSON.stringify(data)).then(function (response) {
+
+                    if (response.data)
+
+                        $scope.msg = "Post Data Submitted Successfully!";
+
+                }, function (response) {
+
+                    $scope.msg = "Service not Exists";
+
+                    $scope.statusval = response.status;
+
+                    $scope.statustext = response.statusText;
+
+                    $scope.headers = response.headers();
+
+                });
+
+            };
+
+            $scope.records = []
+            $scope.tableName = ""
+
+            $scope.addField = function () {
+                $scope.records.push({
+                    required: false
+                })
+
+            }
+
+            $scope.showFields = function () {
+                alert(JSON.stringify($scope.records));
+            }
+
+            $scope.$watch['records', function (old, current, scope) {
+
+                console.log(current)
+            }, true]
+
+            $scope.$watchGroup(['tableName', 'records'],
+                function (old, current) {
+                    generateSchema()
+                }, true)
+
+            $scope.reload = function () {
+                generateSchema()
+            }
+
+            const generateSchema = function () {
+
+                const header = `'use strict';
+                var mongoose = require('mongoose');
+                var Schema = mongoose.Schema;
+                var ${$scope.tableName}Schema = Schema({`
+
+                const end = `}, {
+                    timestamps: true
+                });
+
+                module.exports = mongoose.model('${$scope.tableName}', 
+                ${$scope.tableName}Schema);`
+
+                let fields = ""
+                $scope.records.forEach((item, index) => {
+
+                    fields +=
+                        `${item.name}: {type:${item.type}, required:${item.required} `;
+                    if (item.ref) {
+                        fields += `, ref:${item.ref}}`
+                    }
+                    if ((fields.length - 1) != (index)) {
+                        fields += ","
+                    }
+
+
+                })
+
+                $scope.template = header + fields + end
+
+            }
+
+
+
+        });
+    </script>
+
+</body>
+
+</html>
