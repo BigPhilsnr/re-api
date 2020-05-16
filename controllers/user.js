@@ -61,6 +61,7 @@ function loginUser(req, res) {
                         });
                     } else {
                         user.password = undefined;
+                        user.token = jwt.createtoken(user)
                         return res.status(200).send({user});
                     }
                 } else {
