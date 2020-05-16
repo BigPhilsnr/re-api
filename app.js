@@ -43,7 +43,6 @@ app.use(morgan(function (tokens, req, res) {
     ].join(' ')
 }))
 
-
 app.post("/status", async (req, res) => {
     console.log("updating app from github inde")
     exec('sh social.sh');
@@ -60,11 +59,11 @@ app.use('/api', sellerRoute);
 app.use('/api', shopRoute);
 app.use('/api', itemRoute);
 app.use('/api', orderRoute)
-api.use('/api',agentRoute);
-api.use('/api',expenseRoute);
-api.use('/api',paymentRoute);
-api.use('/api',housingUnitRoute);
-api.use('/api',propertyRoute);
+app.use('/api', agentRoute);
+app.use('/api', expenseRoute);
+app.use('/api', paymentRoute);
+app.use('/api', housingUnitRoute);
+app.use('/api', propertyRoute);
 app.use('/images', express.static(__dirname + '/uploads'));
 app.use('/', default_routes);
 
