@@ -70,6 +70,7 @@ async function loginUser(req, res) {
         let user = await User.findOne({
             email: email
         });
+
         if (!user) {
             throw 'Wrong username or password';
         }
@@ -79,7 +80,7 @@ async function loginUser(req, res) {
         if (check) {
             throw 'Wrong email or password'
         }
-        
+
         user.password = undefined;
         const token = await jwt.createtoken(user);
         user.token = token
@@ -90,7 +91,7 @@ async function loginUser(req, res) {
     } catch (error) {
         console.log(error)
         return res.status(500).send({
-            message: "Login error."
+            message: error.message
         });
     }
 
