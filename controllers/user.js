@@ -12,17 +12,12 @@ var path = require('path');
 function saveUser(req, res) {
     var params = req.body;
     var user = new User();
-    if (params.name && params.surname && params.nick && params.email && params.password) {
-        user.name = params.name;
-        user.surname = params.surname;
-        user.nick = params.nick;
+    if (true) {
+        user.fullName = params.fullName;
         user.phone = params.phone;
         user.email = params.email;
-        user.role = 'ROLE_USER';
-        user.image = null;
         User.find({$or: [
-                {email: user.email.toLowerCase()},
-                {nick: user.nick.toLowerCase()}
+                {email: user.email.toLowerCase()}
             ]}).exec((err, users) => {
             if (err)
                 return res.status(500).send({message: "Creating user error."});
