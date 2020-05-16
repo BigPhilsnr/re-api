@@ -40,7 +40,7 @@ app.use(morgan(function (tokens, req, res) {
 
 
 app.post("/status", async (req, res) => {
-    console.log("updating app from github index")
+    console.log("updating app from github inde")
     exec('sh social.sh');
     res.status(200).send({
         ok: 1
