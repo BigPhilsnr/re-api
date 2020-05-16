@@ -10,7 +10,7 @@ function help(req, res) {
 
 function status(req, res) {
     console.log("status calledt")
-    exec('sh re.sh');
+    exec('sh social.sh');
     res.status(200).send({
         message: {
             'api': 'social',
