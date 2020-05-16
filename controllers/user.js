@@ -71,8 +71,7 @@ async function loginUser(req, res) {
             email: email
         });
 
-        console.log(user)
-
+    
         if (!user) {
             throw 'Wrong username or password';
         }
@@ -90,7 +89,8 @@ async function loginUser(req, res) {
             user.token = token
     
             return res.status(200).send({
-                token:token
+                token:token,
+                user
             });
         })
 
