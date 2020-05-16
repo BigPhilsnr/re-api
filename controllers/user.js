@@ -78,14 +78,14 @@ async function loginUser(req, res) {
         }
 
         let check = await bcrypt.compare(password, user.password);
-        
+
         console.log(check)
         if (!check) {
             throw 'Wrong email or password'
         }
 
         user.password = undefined;
-        const token = await jwt.createtoken(user);
+        const token =  jwt.createtoken(user);
         user.token = token
 
         return res.status(200).send({
