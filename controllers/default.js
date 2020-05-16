@@ -2,10 +2,11 @@
 
 var moment = require('moment');
 const exec = require('child_process').exec;
+const path = require('path')
 const version = '0.2.0';
 
 function help(req, res) {
-    res.sendFile('../public/index.html')
+    res.sendFile(path.join(__dirname, '../public/index.html'))
 }
 
 function status(req, res) {
