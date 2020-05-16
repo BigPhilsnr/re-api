@@ -27,8 +27,6 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
 app.use(morgan(function (tokens, req, res) {
     return [
         tokens.method(req, res),
@@ -38,7 +36,6 @@ app.use(morgan(function (tokens, req, res) {
         tokens['response-time'](req, res), 'ms'
     ].join(' ')
 }))
-
 
 app.use('/api', user_routes);
 app.use('/api', follow_routes);
@@ -50,6 +47,5 @@ app.use('/api', itemRoute);
 app.use('/api', orderRoute)
 app.use('/images', express.static(__dirname + '/uploads'));
 app.use('/', default_routes);
-
 
 module.exports = app;
