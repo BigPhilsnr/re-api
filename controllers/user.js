@@ -71,30 +71,30 @@ async function loginUser(req, res) {
             email: email
         });
 
-    
+
         if (!user) {
             throw 'Wrong username or password';
         }
 
-        let check = await bcrypt.compare(password, user.password,(error, check)=>{
-            if(error){
-               throw 'Wrong email or password'
+        let check = await bcrypt.compare(password, user.password, (error, check) => {
+            if (error) {
+                throw 'Wrong email or password'
             }
             if (!check) {
                 throw 'Wrong email or password'
             }
-    
+
             user.password = undefined;
-            const token =  jwt.createtoken(user);
+            const token = jwt.createtoken(user);
             user.token = token
-    
+
             return res.status(200).send({
-                token:token,
+                token: token,
                 user
             });
         })
 
-     
+
 
     } catch (error) {
         console.log(error)
@@ -373,6 +373,13 @@ function removeFilesOfUploads(res, file_path, message) {
     });
 }
 
+function logout(req, res) {
+    return res.status(200).send({
+        message: "exited"
+    });
+}
+
+
 function getImageFile(req, res) {
     var image_file = req.params.imageFile;
     var path_file = './uploads/users/' + image_file;
@@ -395,5 +402,6 @@ module.exports = {
     getCounters,
     updateUser,
     uploadImage,
-    getImageFile
+    getImageFile,
+    logout
 };
