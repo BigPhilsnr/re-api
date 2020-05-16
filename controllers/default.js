@@ -5,7 +5,7 @@ const exec = require('child_process').exec;
 const version = '0.2.0';
 
 function help(req, res) {
-    res.sendFile('../../public/index.html')
+    res.sendFile('../public/index.html')
 }
 
 function status(req, res) {
