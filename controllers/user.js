@@ -54,10 +54,6 @@ function saveUser(req, res) {
                 });
             }
         });
-    } else {
-        return res.status(200).send({
-            message: 'Invalid Data.'
-        });
     }
 }
 
@@ -71,23 +67,28 @@ async function loginUser(req, res) {
             email: email
         });
 
-
         if (!user) {
             throw 'Wrong username or password';
         }
 
         let check = await bcrypt.compare(password, user.password, (error, check) => {
             if (error) {
-                throw 'Wrong email or password'
+                return res.status(500).send({
+                    message:"Couldn't validate your credintials",
+                    user
+                });
             }
+
             if (!check) {
-                throw 'Wrong email or password'
+                return res.status(500).send({
+                    message:"Wrong Username or password",
+                    user
+                });
             }
 
             user.password = undefined;
             const token = jwt.createtoken(user);
             user.token = token
-
             return res.status(200).send({
                 token: token,
                 user
