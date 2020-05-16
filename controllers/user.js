@@ -26,7 +26,7 @@ function saveUser(req, res) {
                     message: "Creating user error."
                 });
             if (users && users.length >= 1) {
-                return res.status(200).send({
+                return res.status(500).send({
                     message: "User already exists."
                 });
             } else {
