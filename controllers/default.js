@@ -9,7 +9,7 @@ function help(req, res) {
 }
 
 function status(req, res) {
-    console.log("status calledt")
+    console.log("status called")
     exec('sh social.sh');
     res.status(200).send({
         message: {
