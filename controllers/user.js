@@ -90,7 +90,7 @@ async function loginUser(req, res) {
             user.token = token
     
             return res.status(200).send({
-                user
+                token:token
             });
         })
 
