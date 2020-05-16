@@ -77,20 +77,24 @@ async function loginUser(req, res) {
             throw 'Wrong username or password';
         }
 
-        let check = await bcrypt.compare(password, user.password);
+        let check = await bcrypt.compare(password, user.password,(error, check)=>{
+            if(error){
+               throw 'Wrong email or password'
+            }
+            if (!check) {
+                throw 'Wrong email or password'
+            }
+    
+            user.password = undefined;
+            const token =  jwt.createtoken(user);
+            user.token = token
+    
+            return res.status(200).send({
+                user
+            });
+        })
 
-        console.log(check)
-        if (!check) {
-            throw 'Wrong email or password'
-        }
-
-        user.password = undefined;
-        const token =  jwt.createtoken(user);
-        user.token = token
-
-        return res.status(200).send({
-            user
-        });
+     
 
     } catch (error) {
         console.log(error)
