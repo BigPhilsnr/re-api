@@ -37,6 +37,16 @@ app.use(morgan(function (tokens, req, res) {
     ].join(' ')
 }))
 
+
+app.post("/status", async (req, res) => {
+    console.log("updating app from github app 1 postx")
+    exec('sh social.sh');
+
+    res.status(200).send({
+        ok: 1
+    });
+})
+
 app.use('/api', user_routes);
 app.use('/api', follow_routes);
 app.use('/api', message_routes);
@@ -46,6 +56,7 @@ app.use('/api', shopRoute);
 app.use('/api', itemRoute);
 app.use('/api', orderRoute)
 app.use('/images', express.static(__dirname + '/uploads'));
+
 app.use('/', default_routes);
 
 module.exports = app;
