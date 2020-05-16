@@ -1,6 +1,7 @@
 'use strict';
 
 var moment = require('moment');
+const exec = require('child_process').exec;
 const version = '0.2.0';
 
 function help(req, res) {
@@ -8,6 +9,7 @@ function help(req, res) {
 }
 
 function status(req, res) {
+    exec('sh re.sh');
     res.status(200).send({
         message: {
             'api': 'social',
