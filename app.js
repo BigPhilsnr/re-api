@@ -12,6 +12,11 @@ const sellerRoute = require('./routes/seller')
 const shopRoute = require('./routes/shop')
 const itemRoute = require('./routes/item')
 const orderRoute = require('./routes/order')
+const agentRoute = require('./routes/agent')
+const expenseRoute = require('./routes/expense')
+const paymentRoute = require('./routes/payment')
+const housingUnitRoute = require('./routes/housingunit')
+const propertyRoute = require('./routes/property')
 const morgan = require('morgan')
 const exec = require('child_process').exec;
 
@@ -55,8 +60,12 @@ app.use('/api', sellerRoute);
 app.use('/api', shopRoute);
 app.use('/api', itemRoute);
 app.use('/api', orderRoute)
+api.use('/api',agentRoute);
+api.use('/api',expenseRoute);
+api.use('/api',paymentRoute);
+api.use('/api',housingUnitRoute);
+api.use('/api',propertyRoute);
 app.use('/images', express.static(__dirname + '/uploads'));
-
 app.use('/', default_routes);
 
 module.exports = app;
