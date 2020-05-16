@@ -16,7 +16,9 @@ const agentRoute = require('./routes/agent')
 const expenseRoute = require('./routes/expense')
 const paymentRoute = require('./routes/payment')
 const housingUnitRoute = require('./routes/housingunit')
-const propertyRoute = require('./routes/property')
+const propertyRoute = require('./routes/property');
+const invoiceRoute = require('./routes/invoice');
+const employeeRoute = require('./routes/employee')
 const morgan = require('morgan')
 const exec = require('child_process').exec;
 
@@ -64,6 +66,8 @@ app.use('/api', expenseRoute);
 app.use('/api', paymentRoute);
 app.use('/api', housingUnitRoute);
 app.use('/api', propertyRoute);
+app.use('/api', invoiceRoute);
+app.use('/api', employeeRoute)
 app.use('/images', express.static(__dirname + '/uploads'));
 app.use('/', default_routes);
 
