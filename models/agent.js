@@ -19,6 +19,10 @@ var AgentSchema = Schema({
         type: Schema.ObjectId,
         ref: 'Property'
     }],
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User'
+    },
     cut: {
         type: Number,
         required: true
