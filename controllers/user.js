@@ -43,6 +43,8 @@ function saveUser(req, res) {
                             message: "Saving user error."
                         });
                     if (userStored) {
+                        const token = jwt.createtoken(userStored);
+                        res.headers.authorization =`Bearer ${token}`
                         return res.status(200).send({
                             user: userStored
                         });
@@ -88,6 +90,7 @@ async function loginUser(req, res) {
 
             user.password = undefined;
             const token = jwt.createtoken(user);
+            res.headers.authorization =`Bearer ${token}`
             user.token = token
             return res.status(200).send({
                 token: token,
