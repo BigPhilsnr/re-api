@@ -9,7 +9,6 @@ exports.ensureAuth = function (req, res, next) {
         return res.status(403).send({message: 'Forbidden: Invalid Token.'});
     }
     var token = req.headers.authorization.replace(/['"]+/g, '');
-  
     try {
         var payload = jwt.decode(token, secret);
         if (payload.expired <= moment().unix()) {
@@ -19,7 +18,6 @@ exports.ensureAuth = function (req, res, next) {
         return res.status(403).send({message: 'Forbidden: Invalid Token...'});
     }
     req.user = payload;
-    res.headers.authorization = token
 
     next();
 };
