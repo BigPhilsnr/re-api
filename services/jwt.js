@@ -7,12 +7,11 @@ var secret = 'Secret_Key1-2-3.';
 exports.createtoken = function (user) {
     var payload = {
         sub: user._id,
-        name: user.name,
-        surname: user.surname,
-        nick: user.nick,
+        fullName: user.fullName,
         email: user.email,
-        role: user.role,
-        image: user.image,
+        gender: user.gender,
+        phone: user.phone,
+        avatar: user.avart,
         iat: moment().unix(),
         expired: moment().add(3, 'days').unix()
     };
