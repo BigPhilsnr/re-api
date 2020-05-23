@@ -29,7 +29,6 @@ var AgentSchema = Schema({
     },
     cut: {
         type: Number,
-        required: true
     },
     description: {
         type: String,
