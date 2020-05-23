@@ -11,6 +11,7 @@ async function createAgent(req, res) {
             agent: agent
         });
     } catch (error) {
+        console.log(error)
         return res.status(500).send({
             error: error
         });
