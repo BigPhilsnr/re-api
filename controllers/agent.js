@@ -6,6 +6,7 @@ async function createAgent(req, res) {
     try {
         req.body.user = req.user._id;
         const agent = await new Agent(req.body).save();
+        console.log(agent)
         return res.status(200).send({
             agent: agent
         });
