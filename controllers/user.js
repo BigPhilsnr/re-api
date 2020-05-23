@@ -44,7 +44,7 @@ function saveUser(req, res) {
                         });
                     if (userStored) {
                         const token = jwt.createtoken(userStored);
-                        res.setHeader('Authorization', `Bearer ${token}`);
+                        res.setHeader('Authorization', `${token}`);
                         return res.status(200).send({
                             user: userStored
                         });
@@ -90,7 +90,7 @@ async function loginUser(req, res) {
 
             user.password = undefined;
             const token = jwt.createtoken(user);
-            res.setHeader('Authorization', `Bearer ${token}`);
+            res.setHeader('Authorization', `${token}`);
             user.token = token
             return res.status(200).send({
                 token: token,
