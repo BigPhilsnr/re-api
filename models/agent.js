@@ -3,7 +3,11 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var AgentSchema = Schema({
-    name: {
+    brandName: {
+        type: String,
+        required: true,
+    },
+    companyName: {
         type: String,
         required: true,
     },

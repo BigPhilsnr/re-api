@@ -4,6 +4,7 @@ var Agent = require('../models/agent');
 
 async function createAgent(req, res) {
     try {
+        req.body.user = req.user._id;
         const agent = await new Agent(req.body).save();
         return res.status(200).send({
             agent: agent
