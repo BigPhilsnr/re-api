@@ -9,6 +9,7 @@ exports.ensureAuth = function (req, res, next) {
         return res.status(403).send({message: 'Forbidden: Invalid Token.'});
     }
     var token = req.headers.authorization.replace(/['"]+/g, '');
+    token = token.replace('Bearer', '').trim()
     console.log(token)
     try {
         var payload = jwt.decode(token, secret);
