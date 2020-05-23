@@ -19,7 +19,7 @@ exports.ensureAuth = function (req, res, next) {
         return res.status(403).send({message: 'Forbidden: Invalid Token...'});
     }
     req.user = payload;
-    res.headers.authorization = token
+    //res.headers.authorization = token
 
     next();
 };
