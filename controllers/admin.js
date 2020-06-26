@@ -1,15 +1,13 @@
 'use strict';
 
-var fs = require('fs');
-var path = require('path');
-var Seller = require('../models/seller');
+var Admin = require('../models/admin');
 
 
-async function createSeller(req, res) {
+async function createAdmin(req, res) {
     try {
-        const seller = await new Seller(req.body).save();
+        const admin = await new Admin(req.body).save();
         return res.status(200).send({
-            seller: seller
+            admin: admin
         });
     } catch (error) {
         return res.status(500).send({
@@ -19,17 +17,17 @@ async function createSeller(req, res) {
 
 }
 
-async function updateSeller(req, res) {
+async function updateAdmin(req, res) {
     try {
         const id = req.body._id
         delete req.body._id
-        const seller = await Seller.findByIdAndUpdate({
+        const admin = await Admin.findByIdAndUpdate({
             _id,
             id
         }, req.body);
 
         return res.status(200).send({
-            seller: seller
+            admin: admin
         });
 
     } catch (error) {
@@ -39,13 +37,13 @@ async function updateSeller(req, res) {
     }
 }
 
-async function getSeller(req, res) {
+async function getAdmin(req, res) {
     try {
         console.log(req.user)
         if (req.query._id) {
-            const seller = await Seller.findById(req.query._id).populate('user');
+            const admin = await Admin.findById(req.query._id).populate('user');
             return res.status(200).send({
-                seller: seller
+                admin: admin
             })
         }
        
@@ -55,13 +53,13 @@ async function getSeller(req, res) {
         delete query.page;
         delete query.limit;
 
-        const sellers = await Seller.paginate(query, {
+        const admins = await Admin.paginate(query, {
             limit: limit,
             page: page,
             populate: 'user'
         });
         return res.status(200).send({
-            sellers: sellers
+            admins: admins
         })
 
     } catch (error) {
@@ -74,9 +72,9 @@ async function getSeller(req, res) {
 }
 
 
-async function deleteSeller(req, res) {
+async function deleteAdmin(req, res) {
     try {
-        const result = await Seller.findById(req.query).remove()
+        const result = await Admin.findById(req.query).remove()
         return res.status(200).send({
             result: result
         })
@@ -90,8 +88,8 @@ async function deleteSeller(req, res) {
 
 
 module.exports = {
-    createSeller,
-    getSeller,
-    deleteSeller,
-    updateSeller,
+    createAdmin,
+    getAdmin,
+    deleteAdmin,
+    updateAdmin,
 };

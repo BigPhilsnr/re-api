@@ -21,6 +21,10 @@ var InvoiceSchema = Schema({
         type: Date,
         required: true
     },
+    status: {
+        type: String,
+        default: 'UNPAID'
+    },
     property: {
         type: Schema.ObjectId,
         ref: 'Property',

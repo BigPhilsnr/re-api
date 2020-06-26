@@ -30,9 +30,9 @@ var PropertySchema = new Schema({
             type: Number
         }
     },
-    Property: {
+    admin: {
         type: Schema.ObjectId,
-        ref: 'Property',
+        ref: 'Admin',
         autopopulate: true
 
     }
