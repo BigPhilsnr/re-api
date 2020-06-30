@@ -9,6 +9,10 @@ var AdminSchema = Schema({
         ref: 'User',
         required: true,
         unique: true
+    },
+    status: {
+        type: String, 
+        default: "ACTIVE",
     }
 }, {
     timestamps: true
