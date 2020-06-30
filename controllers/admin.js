@@ -1,11 +1,17 @@
 'use strict';
 
 var Admin = require('../models/admin');
+var User = require('../models/user')
 
 
 async function createAdmin(req, res) {
     try {
-        const admin = await new Admin(req.body).save();
+        if(req.body.user){
+          const user = await new User(req.body.user).save();
+          req.body.user =user._id
+        }
+        let admin = await new Admin(req.body).save();
+             admin = await Admin.findById(admin._id).populate('user');
         return res.status(200).send({
             admin: admin
         });
