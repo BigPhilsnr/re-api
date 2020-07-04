@@ -20,6 +20,7 @@ const propertyRoute = require('./routes/property');
 const invoiceRoute = require('./routes/invoice');
 const employeeRoute = require('./routes/employee')
 const adminRoute  = require('./routes/admin')
+const tenantRoute = require('./routes/tenant')
 const morgan = require('morgan')
 const exec = require('child_process').exec;
 
@@ -71,6 +72,7 @@ app.use('/api', propertyRoute);
 app.use('/api', invoiceRoute);
 app.use('/api', employeeRoute);
 app.use('/api', adminRoute)
+app.user('/api/',tenantRoute)
 app.use('/images', express.static(__dirname + '/uploads'));
 app.use('/', default_routes);
 
