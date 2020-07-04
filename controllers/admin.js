@@ -83,7 +83,7 @@ async function getAdmin(req, res) {
 async function deleteAdmin(req, res) {
     try {
         const result = await Admin.findById(req.query._id).remove()
-        
+    
         return res.status(200).send({
             result: result
         })
