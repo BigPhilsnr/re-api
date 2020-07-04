@@ -72,7 +72,7 @@ app.use('/api', propertyRoute);
 app.use('/api', invoiceRoute);
 app.use('/api', employeeRoute);
 app.use('/api', adminRoute)
-app.user('/api/',tenantRoute)
+app.use('/api/',tenantRoute)
 app.use('/images', express.static(__dirname + '/uploads'));
 app.use('/', default_routes);
 
