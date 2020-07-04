@@ -6,12 +6,12 @@ var User = require('../models/user')
 
 async function createAdmin(req, res) {
     try {
-        if(req.body.user){
-          const user = await new User(req.body.user).save();
-          req.body.user =user._id
+        if (req.body.user) {
+            const user = await new User(req.body.user).save();
+            req.body.user = user._id
         }
         let admin = await new Admin(req.body).save();
-             admin = await Admin.findById(admin._id).populate('user');
+        admin = await Admin.findById(admin._id).populate('user');
         return res.status(200).send({
             admin: admin
         });
@@ -28,8 +28,7 @@ async function updateAdmin(req, res) {
         const id = req.body._id
         delete req.body._id
         let admin = await Admin.findByIdAndUpdate({
-            _id:
-            id
+            _id: id
         }, req.body);
         admin = await Admin.findById(admin._id).populate('user');
         console.log(admin)
@@ -54,7 +53,7 @@ async function getAdmin(req, res) {
                 admin: admin
             })
         }
-       
+
         const page = req.query.page;
         const limit = req.query.limit;
         let query = req.query;
@@ -82,11 +81,15 @@ async function getAdmin(req, res) {
 
 async function deleteAdmin(req, res) {
     try {
+
         const result = await Admin.findById(req.query._id).remove()
         return res.status(200).send({
-            admin: {_id:req.body._id}
+            admin: {
+                _id: req.body._id
+            }
         })
     } catch (error) {
+        console.log(error)
         return res.status(500).send({
             error: error
         });
