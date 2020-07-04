@@ -32,11 +32,13 @@ async function updateAdmin(req, res) {
             id
         }, req.body);
 
+        console.log(admin)
         return res.status(200).send({
             admin: admin
         });
 
     } catch (error) {
+        console.error(error)
         return res.status(500).send({
             error: error
         });
