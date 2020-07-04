@@ -27,11 +27,11 @@ async function updateAdmin(req, res) {
     try {
         const id = req.body._id
         delete req.body._id
-        const admin = await Admin.findByIdAndUpdate({
+        let admin = await Admin.findByIdAndUpdate({
             _id:
             id
         }, req.body);
-
+        admin = await Admin.findById(admin._id).populate('user');
         console.log(admin)
         return res.status(200).send({
             admin: admin
