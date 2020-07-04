@@ -28,7 +28,7 @@ async function updateAdmin(req, res) {
         const id = req.body._id
         delete req.body._id
         const admin = await Admin.findByIdAndUpdate({
-            _id,
+            _id:
             id
         }, req.body);
 
