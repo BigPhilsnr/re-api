@@ -10,7 +10,6 @@ exports.ensureAuth = function (req, res, next) {
     }
     var token = req.headers.authorization.replace(/['"]+/g, '');
     token = token.replace('Bearer', '').trim()
-    console.log(token)
     try {
         var payload = jwt.decode(token, secret);
         if (payload.expired <= moment().unix()) {
