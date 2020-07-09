@@ -14,9 +14,7 @@ function saveUser(req, res) {
     var params = req.body;
     var user = new User();
     if (true) {
-        user.fullName = params.fullName;
-        user.phone = params.phone;
-        user.email = params.email;
+        user = params;
         User.find({
             $or: [{
                 email: user.email.toLowerCase()
