@@ -29,7 +29,10 @@ var UserSchema = Schema({
         required: true
     },
     userType: {
-        type:String
+        type: String
+    },
+    receiveNewsletter: {
+        type: Boolean
     },
     avatar: {
         type: Schema.ObjectId,
