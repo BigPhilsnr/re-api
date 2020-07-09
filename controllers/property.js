@@ -1,4 +1,5 @@
 'use strict';
+
 var Property = require('../models/property');
 
 async function createProperty(req, res) {
