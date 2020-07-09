@@ -4,7 +4,7 @@ var Property = require('../models/property');
 
 async function createProperty(req, res) {
     try {
-        console.log(req.files)
+        console.log(req)
         const property = await new Property(req.body).save();
         return res.status(200).send({
             property: property
