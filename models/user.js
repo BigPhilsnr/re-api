@@ -28,7 +28,7 @@ var UserSchema = Schema({
         type: Date,
         required: true
     },
-    type: {
+    userType: {
         type:String
     },
     avatar: {
