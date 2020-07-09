@@ -28,6 +28,9 @@ var UserSchema = Schema({
         type: Date,
         required: true
     },
+    type: {
+        type:String
+    },
     avatar: {
         type: Schema.ObjectId,
         ref: 'File',
