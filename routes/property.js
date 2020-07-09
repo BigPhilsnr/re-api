@@ -12,5 +12,4 @@ api.delete('/property/:id', md_auth.ensureAuth, Propertycontroller.deletePropert
 api.put('/property', md_auth.ensureAuth, Propertycontroller.updateProperty);
 api.get('/property', md_auth.ensureAuth, Propertycontroller.getProperty);
 
-
 module.exports = api;
