@@ -61,6 +61,10 @@ function saveUser(req, res) {
 async function loginUser(req, res) {
     var params = req.body;
     var email = params.email;
+    if(params.username){
+        email= params.username;
+    }
+
     var password = params.password;
 
     try {
