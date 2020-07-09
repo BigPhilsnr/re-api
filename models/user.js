@@ -8,6 +8,10 @@ var UserSchema = Schema({
         type: String,
         required: true
     },
+    username: {
+        type: String,
+    },
+
     email: {
         type: String,
         required: true
@@ -26,7 +30,7 @@ var UserSchema = Schema({
     },
     dob: {
         type: Date,
-        required: true
+       
     },
     userType: {
         type: String
