@@ -1,6 +1,7 @@
 'use strict';
 
 var bcrypt = require('bcrypt-nodejs');
+// @ts-ignore
 var mongoosePaginate = require('mongoose-pagination');
 var User = require('../models/user');
 var Follow = require('../models/follow');
@@ -73,6 +74,7 @@ async function loginUser(req, res) {
             throw 'Wrong username or password';
         }
 
+        // @ts-ignore
         let check = await bcrypt.compare(password, user.password, (error, check) => {
             if (error) {
                 return res.status(500).send({
@@ -140,6 +142,7 @@ async function followThisUser(identity_user_id, user_id) {
             return following;
         })
         .catch((err) => {
+            // @ts-ignore
             return handleError(err);
         });
 
@@ -151,6 +154,7 @@ async function followThisUser(identity_user_id, user_id) {
             return followed;
         })
         .catch((err) => {
+            // @ts-ignore
             return handleError(err);
         });
 
@@ -167,6 +171,7 @@ function getUsers(req, res) {
     if (req.params.page) {
         page = req.params.page;
     }
+    // @ts-ignore
     User.find().sort('_id').paginate(page, itemsPerPage, (err, users, total) => {
         if (!users)
             return res.status(404).send({
@@ -201,6 +206,7 @@ async function followUserIds(user_id) {
             return following;
         })
         .catch((err) => {
+            // @ts-ignore
             return handleError(err);
         });
 
@@ -215,6 +221,7 @@ async function followUserIds(user_id) {
             return followed;
         })
         .catch((err) => {
+            // @ts-ignore
             return handleError(err);
         });
 
@@ -251,6 +258,7 @@ async function getCountFollow(user_id) {
             return count;
         })
         .catch((err) => {
+            // @ts-ignore
             return handleError(err);
         });
 
@@ -261,6 +269,7 @@ async function getCountFollow(user_id) {
             return count;
         })
         .catch((err) => {
+            // @ts-ignore
             return handleError(err);
         });
 
@@ -271,6 +280,7 @@ async function getCountFollow(user_id) {
             return count;
         })
         .catch((err) => {
+            // @ts-ignore
             return handleError(err);
         });
 
@@ -299,6 +309,7 @@ function updateUser(req, res) {
                 nick: update.nick.toLowerCase()
             }
         ]
+    // @ts-ignore
     }).exec((err, users) => {
         var user_isset = false;
         users.forEach((users) => {
@@ -370,6 +381,7 @@ function uploadImage(req, res) {
 }
 
 function removeFilesOfUploads(res, file_path, message) {
+    // @ts-ignore
     fs.unlink(file_path, (err) => {
         return res.status(200).send({
             message: message
@@ -377,6 +389,7 @@ function removeFilesOfUploads(res, file_path, message) {
     });
 }
 
+// @ts-ignore
 function logout(req, res) {
     return res.status(200).send({
         message: "exited"
