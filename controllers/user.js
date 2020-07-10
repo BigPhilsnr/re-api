@@ -12,9 +12,12 @@ var path = require('path');
 
 function saveUser(req, res) {
     var params = req.body;
-    var user = new User();
+    params.userType = params.userType.name;
+    params.gender = params.gender.name;
+    console.log(req.body)
+    var user = new User(params);
     if (true) {
-        user = params;
+
         User.find({
             $or: [{
                 email: user.email.toLowerCase()
@@ -61,8 +64,9 @@ function saveUser(req, res) {
 async function loginUser(req, res) {
     var params = req.body;
     var email = params.email;
-    if(params.username){
-        email= params.username;
+    console.log(email)
+    if (params.username) {
+        email = params.username;
     }
 
     var password = params.password;
@@ -80,15 +84,15 @@ async function loginUser(req, res) {
         let check = await bcrypt.compare(password, user.password, (error, check) => {
             if (error) {
                 return res.status(500).send({
-                    message:"Couldn't validate your credintials",
-                    user
+                    message: "Couldn't validate your credintials",
+                
                 });
             }
 
             if (!check) {
-                return res.status(500).send({
-                    message:"Wrong Username or password",
-                    user
+                return res.status(400).send({
+                    message: "Wrong Username or password",
+        
                 });
             }
 
@@ -106,8 +110,8 @@ async function loginUser(req, res) {
 
     } catch (error) {
         console.log(error)
-        return res.status(500).send({
-            message: error.message
+        return res.status(404).send({
+            message: error
         });
     }
 
@@ -311,7 +315,7 @@ function updateUser(req, res) {
                 nick: update.nick.toLowerCase()
             }
         ]
-    // @ts-ignore
+        // @ts-ignore
     }).exec((err, users) => {
         var user_isset = false;
         users.forEach((users) => {

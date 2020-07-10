@@ -1,16 +1,98 @@
+// @ts-nocheck
 'use strict';
 
 var Property = require('../models/property');
 async function createProperty(req, res) {
     try {
-        console.log(req);
-        const property = await new Property(req.body).save();
+        req.body.user = req.user.userId;
+        const property = req.body;
+        console.log(req.body)
+        console.log(req.files)
+        property.location = {
+            lat: property.lat,
+            lng: property.lng
+        };
+
+        if (req.files.gallery) {
+            if (Array.isArray(req.files.gallery)) {
+                property.gallery = req.files.gallery.map(image => {
+                    return {
+                        small: image.path,
+                        medium: image.path,
+                        big: image.path
+                    }
+                });
+            } else {
+                const image = req.files.gallery.path
+                property.gallery = [{
+                    small: image,
+                    medium: image,
+                    big: image
+                }]
+            }
+
+        }
+
+        if (property.videos) {
+            if (Array.isArray(property.videos)) {
+                property.videos = property.videos.map(link => {
+                    return {
+                        name: '',
+                        link: link
+                    }
+                })
+            } else {
+                property.video = [{
+                    name: '',
+                    link: property.videos
+                }]
+            }
+        }
+
+        if (property.additionalFeatures) {
+            if (Array.isArray(property.additionalFeatures)) {
+                property.video = property.additionalFeatures.map(content => {
+                    return {
+                        name: '',
+                        value: content
+                    }
+                })
+            } else {
+                property.additionalFeatures = [{
+                    name: '',
+                    value: property.additionalFeatures
+                }]
+            }
+        }
+
+        if (property.features) {
+            if (!Array.isArray(property.features)) {
+                property.features = [property.features]
+            }
+        }
+
+        property.area = {
+            value: property.area,
+            unit: 'ft'
+        }
+
+        property.priceDollar = {};
+        property.priceEuro = {};
+        property.priceDollar.rent = property.rent
+        property.priceEuro.rent = property.rent;
+        property.priceDollar.sale = property.sale;
+        property.priceEuro.sale = property.sale;
+        property.id = 0;
+
+        let propertyResult = await new Property(property).save();
+        propertyResult = await Property.findById(propertyResult._id).populate('user');
         return res.status(200).send({
-            property: property
+            property: propertyResult
         });
     } catch (error) {
+        console.log(error)
         return res.status(500).send({
-            error: error
+            error: error.message
         });
     }
 }
@@ -37,8 +119,9 @@ async function updateProperty(req, res) {
 
 async function getProperty(req, res) {
     try {
+
         if (req.query.id) {
-            const property = await Property.findById(req.query.id);
+            const property = await Property.findById(req.query.id).populate('user');
             return res.status(200).send({
                 property: property
             })

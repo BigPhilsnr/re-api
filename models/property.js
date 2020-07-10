@@ -133,13 +133,20 @@ var PropertySchema = new Schema({
         }]
     },
     published: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     lastUpdate: {
-        type: Date
+        type: Date,
+        default: Date.now
     },
     views: {
-        type: Number
+        type: Number,
+        default: 0
+    },
+    user: {
+        type: Schema.ObjectId,
+        ref: 'User'
     }
 }, {
     timestamps: true
