@@ -22,6 +22,7 @@ const employeeRoute = require('./routes/employee');
 const adminRoute = require('./routes/admin');
 const tenantRoute = require('./routes/tenant');
 const mailRoute = require('./routes/mail');
+const feedBackRoute = require('./routes/feedback');
 
 const morgan = require('morgan');
 const exec = require('child_process').exec;
@@ -84,6 +85,7 @@ app.use('/api', invoiceRoute);
 app.use('/api', employeeRoute);
 app.use('/api', adminRoute);
 app.use('/api', mailRoute);
+app.use('/api', feedBackRoute);
 
 app.use('/api/', tenantRoute);
 app.use('/images', express.static(__dirname + '/uploads'));
