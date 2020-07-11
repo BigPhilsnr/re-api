@@ -4,12 +4,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var MailSchema = Schema(
 	{
-		description: String,
 		email: {
-			type: Schema.ObjectId,
-			ref: 'User',
+			type: String,
 			required: true,
-			unique: true,
+			// unique: true,
 		},
 	},
 	{
