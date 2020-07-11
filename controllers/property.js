@@ -6,14 +6,13 @@ async function createProperty(req, res) {
     try {
         req.body.user = req.user.userId;
         const property = req.body;
-        console.log(req.body)
-        console.log(req.files)
+    
         property.location = {
             lat: property.lat,
             lng: property.lng
         };
 
-        if (req.files.gallery) {
+        if (req.files && req.files.gallery) {
             if (Array.isArray(req.files.gallery)) {
                 property.gallery = req.files.gallery.map(image => {
                     return {
