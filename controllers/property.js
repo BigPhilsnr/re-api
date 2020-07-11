@@ -6,8 +6,7 @@ async function createProperty(req, res) {
     try {
         req.body.user = req.user.userId;
         const property = req.body;
-        console.log(req.body)
-        console.log(req.files)
+    
         property.location = {
             lat: property.lat,
             lng: property.lng
