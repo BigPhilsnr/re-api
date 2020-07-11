@@ -42,7 +42,7 @@ async function createProperty(req, res) {
                     }
                 })
             } else {
-                property.video = [{
+                property.videos = [{
                     name: '',
                     link: property.videos
                 }]
@@ -51,7 +51,7 @@ async function createProperty(req, res) {
 
         if (property.additionalFeatures) {
             if (Array.isArray(property.additionalFeatures)) {
-                property.video = property.additionalFeatures.map(content => {
+                property.additionalFeatures = property.additionalFeatures.map(content => {
                     return {
                         name: '',
                         value: content
