@@ -13,7 +13,7 @@ async function createProperty(req, res) {
             lng: property.lng
         };
 
-        if (req.files.gallery) {
+        if (req.files && req.files.gallery) {
             if (Array.isArray(req.files.gallery)) {
                 property.gallery = req.files.gallery.map(image => {
                     return {
